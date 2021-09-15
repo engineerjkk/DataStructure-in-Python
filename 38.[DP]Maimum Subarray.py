@@ -1,0 +1,28 @@
+#문제: 주어진 Array에서 최대 Maximum Subarray를 계산하여라
+
+from typing import List
+
+
+def maxSubArray(nums: List[int]) -> int:
+    if len(nums) == 0:
+        return 0
+
+    if len(nums) == 1:
+        return nums[0]
+
+    dp_array = [0] * len(nums)
+    dp_array[0] = nums[0]
+
+    for idx in range(1, len(nums)):
+        prev_max = dp_array[idx - 1]
+        crnt_val = nums[idx]
+
+        connected_sum = prev_max + crnt_val
+        max_sub = max(connected_sum, crnt_val)
+        dp_array[idx] = max_sub
+
+    max_sum = max(dp_array)
+    return max_sum
+
+
+print(maxSubArray(nums=[5, -1, 9, -15, 8]))
